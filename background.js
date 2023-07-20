@@ -56,18 +56,7 @@ function getBookmarkList(bookmarkTree){
     listHTML += "</ul>";
     return listHTML;
 }
-    //ascending order
-      // let listHTML = "<ul>";
-    // bookmarkTree.forEach((node ) => {
-    //     if(node.children){
-    //         listHTML += `<li><b>${node.title}</b></li>`;
-    //         listHTML += getBookmarkList(node.children);
-    //     } else {
-    //         listHTML += `<li><a href="${node.url}" target="_blank">${node.title}</a></li>`;
-    //     }
-    // });
-    // listHTML += "</ul>";
-    // return listHTML;
+ 
 
 // get current active tab & update popup when it's loaded
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -93,25 +82,12 @@ chrome.tabs.onActivated.addListener(tab=>{
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (tab.active && changeInfo.title) {
       updatePopupWithTabInfo(changeInfo.title, tab.url);
+      console.log(tab.url);
     }
   });
 
 
- chrome.tabs.onUpdated.addListener(tab=>{
-        chrome.tabs.get(tab.tabId, current_tab_info =>{
-            console.log(current_tab_info.title)
-        });
- });
+
 
 
  
-// chrome.bookmarks.get(id, bookmark =>{
-//     console.log('bookmark', bookmark[0].children );
-// }
-// )
-
-// chrome.addListener(bookmark =>{
-//     chrome.bookmarks.getTree(tree =>{
-//         console.log(flattenBookmarks(tree));
-//     })
-// })
