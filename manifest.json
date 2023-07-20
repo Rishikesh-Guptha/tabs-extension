@@ -3,7 +3,7 @@
     "description":"This extension displays the url and name of the current tab the user is in",
     "version": "1.0",
     "manifest_version": 2,
-    "permissions":["tabs","bookmarks"],
+    "permissions":["tabs","bookmarks","notifications"],
     "background":{
         "scripts":["background.js"]
     },
