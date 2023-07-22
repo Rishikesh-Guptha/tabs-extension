@@ -69,7 +69,9 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 
 // Function to display the title and URL in the popup (optional).
 function displayTabInfo(tab) {
+  console.log(tab.title);
   console.log(tab.url);
+  
 }
 
 // Function to handle the response from the tabs.query() method.
