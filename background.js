@@ -67,32 +67,8 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
   });
   
 
-
-// chrome.tabs.onActivated.addListener(tab=>{
-//     chrome.tabs.get(tab.tabId, current_tab_info =>{
-//         console.log("Title: "+current_tab_info.title );
-//         console.log("URL: "+  current_tab_info.url);
-//         const title = current_tab_info.title;
-//         const url = current_tab_info.url;
-//         updatePopupWithTabInfo(title, url);
-//     });
-// });
-
-
-
-// event listener to update the popup when the title of the active tab is updated
-// chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-//     if (tab.active && changeInfo.title) {
-//       updatePopupWithTabInfo(changeInfo.title, tab.url);
-//       console.log(tab.url);
-//     }
-//   });
-
 // Function to display the title and URL in the popup (optional).
 function displayTabInfo(tab) {
-  // document.getElementById('title').textContent = tab.title;
-  // document.getElementById('url').textContent = tab.url;
-  console.log(tab.title);
   console.log(tab.url);
 }
 
