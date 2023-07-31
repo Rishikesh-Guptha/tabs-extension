@@ -1,3 +1,19 @@
+// import { collection, addDoc } from "firebase/firestore"; 
+
+// async function firebase_add(){
+//   try {
+//     const docRef = await addDoc(collection(db, "users"), {
+//       first: "Ada",
+//       last: "Lovelace",
+//       born: 1815
+//     });
+//     console.log("Document written with ID: ", docRef.id);
+//   } catch (e) {
+//     console.error("Error adding document: ", e);
+//   }
+  
+// }
+
 function updatePopupWithTabInfo(title, url) {
     const titleElement = document.getElementById("title");
     const urlElement = document.getElementById("url");
@@ -69,6 +85,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 
 // Function to display the title and URL in the popup (optional).
 function displayTabInfo(tab) {
+
   console.log(tab.title);
   console.log(tab.url);
   
