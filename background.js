@@ -97,6 +97,38 @@ function handleTabUpdate(tabId, changeInfo, tab) {
 chrome.tabs.onActivated.addListener(handleTabChange);
 chrome.tabs.onUpdated.addListener(handleTabUpdate);
 
+//For restricting the user from enetring youtube
+// background.js
+
+// List of restricted websites
+// const restrictedWebsites = ["youtube.com"];
+
+// // Register web request listener
+// chrome.webRequest.onBeforeRequest.addListener(
+//   function(details) {
+//     // Get the URL of the requested website
+//     const url = new URL(details.url);
+    
+//     // Check if the requested website is in the restricted list
+//     if (restrictedWebsites.includes(url.hostname)) {
+//       // Block the request by returning an object with 'cancel' set to true
+//       return { cancel: true };
+//     }
+//   },
+//   { urls: ["<all_urls>"] }, // Match all URLs
+//   ["blocking"] // This flag is required to enable blocking
+// );
+
+const blockedSites = ['www.youtube.com'];
+
+chrome.webNavigation.onCommitted.addListener(function(details) {
+  if (blockedSites.includes(details.url)) {
+    chrome.tabs.executeScript(details.tabId, {
+      code: 'window.location.href = "https://www.google.com";'
+    });
+  }
+});
+
 
 
 
