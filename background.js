@@ -1,5 +1,7 @@
+//Having issues with the import statement
+// import firebase from "firebase/compat/app";
+// import "firebase/firestore";
 // import { collection, addDoc } from "./firebase/firestore"; 
-
 
 // async function firebase_add(){
 //   try {
