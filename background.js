@@ -1,4 +1,4 @@
-import { collection, addDoc } from "./firebase/firestore"; 
+// import { collection, addDoc } from "./firebase/firestore"; 
 
 
 // async function firebase_add(){
@@ -114,16 +114,6 @@ function handleTabUpdate(tabId, changeInfo, tab) {
 
 chrome.tabs.onActivated.addListener(handleTabChange);
 chrome.tabs.onUpdated.addListener(handleTabUpdate);
-
-const blockedSites = ['www.youtube.com'];
-
-chrome.webNavigation.onCommitted.addListener(function(details) {
-  if (blockedSites.includes(details.url)) {
-    chrome.tabs.executeScript(details.tabId, {
-      code: 'window.location.href = "https://www.google.com";'
-    });
-  }
-});
 
 
 
