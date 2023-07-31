@@ -1,4 +1,5 @@
-// import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc } from "./firebase/firestore"; 
+
 
 // async function firebase_add(){
 //   try {
