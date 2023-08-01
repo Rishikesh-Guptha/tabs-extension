@@ -1,22 +1,3 @@
-//Having issues with the import statement
-// import firebase from "firebase/compat/app";
-// import "firebase/firestore";
-// import { collection, addDoc } from "./firebase/firestore"; 
-
-// async function firebase_add(){
-//   try {
-//     const docRef = await addDoc(collection(db, "users"), {
-//       first: "Ada",
-//       last: "Lovelace",
-//       born: 1815
-//     });
-//     console.log("Document written with ID: ", docRef.id);
-//   } catch (e) {
-//     console.error("Error adding document: ", e);
-//   }
-  
-// }
-
 function updatePopupWithTabInfo(title, url) {
     const titleElement = document.getElementById("title");
     const urlElement = document.getElementById("url");
