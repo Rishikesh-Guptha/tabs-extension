@@ -1,3 +1,5 @@
+//BOOKMARKS
+
 function updatePopupWithTabInfo(title, url) {
     const titleElement = document.getElementById("title");
     const urlElement = document.getElementById("url");
@@ -57,6 +59,7 @@ function getBookmarkList(bookmarkTree){
     return listHTML;
 }
  
+//TABS
 
 // get current active tab & update popup when it's loaded
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
