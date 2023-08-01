@@ -1,4 +1,10 @@
 //Firebase Configurations
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import firebase from "firebase/compat/app";
+// Required for side-effects
+import "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBLSX15gty8jTRPPe4zwGvQy3BxJxIU9gQ",
@@ -9,6 +15,9 @@ const firebaseConfig = {
   appId: "1:7666181085:web:c56f28e996bd8fd3d5cc34",
   measurementId: "G-3FHBWM8CPD"
 };
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
 
 //BOOKMARKS
 
