@@ -3,11 +3,10 @@
     "description":"This extension displays the url and name of the current tab the user is in",
     "version": "1.0",
     "manifest_version": 3,
-    "permissions":["tabs","bookmarks","notifications","webNavigation","webRequestBlocking"],
+    "permissions":["tabs","bookmarks","notifications"],
     "host_permissions":["*://*.youtube.com/*"],
     "background":{
-        "service_worker":"background.js",
-        "type":"module"
+        "service_worker":"firebase.js"
     },
     "action":{
         "default_popup":"popup.html",
