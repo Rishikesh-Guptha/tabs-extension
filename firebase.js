@@ -25,73 +25,96 @@
 // const analytics = getAnalytics(app);
 // const db = getFirestore(app);
 
-try{
-  self.importScripts('firebase/app','firebase/firestore');
+// try{
+//   self.importScripts('firebase/app','firebase/firestore');
   
-  const firebaseConfig = {
-      apiKey: "AIzaSyBLSX15gty8jTRPPe4zwGvQy3BxJxIU9gQ",
-      authDomain: "surf-sentinel-fc8a9.firebaseapp.com",
-      projectId: "surf-sentinel-fc8a9",
-      storageBucket: "surf-sentinel-fc8a9.appspot.com",
-      messagingSenderId: "7666181085",
-      appId: "1:7666181085:web:c56f28e996bd8fd3d5cc34",
-      measurementId: "G-3FHBWM8CPD"
-    };
+//   const firebaseConfig = {
+//       apiKey: "AIzaSyBLSX15gty8jTRPPe4zwGvQy3BxJxIU9gQ",
+//       authDomain: "surf-sentinel-fc8a9.firebaseapp.com",
+//       projectId: "surf-sentinel-fc8a9",
+//       storageBucket: "surf-sentinel-fc8a9.appspot.com",
+//       messagingSenderId: "7666181085",
+//       appId: "1:7666181085:web:c56f28e996bd8fd3d5cc34",
+//       measurementId: "G-3FHBWM8CPD"
+//     };
 
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const db = getFirestore(app);
+//     const app = initializeApp(firebaseConfig);
+//     const analytics = getAnalytics(app);
+//     const db = getFirestore(app);
     
 
-    firebase.initializeApp(firebaseConfig);
-    console.log(firebase);
+//     firebase.initializeApp(firebaseConfig);
+//     console.log(firebase);
 
         
-    //TABS
+//     //TABS
 
-    // get current active tab & update popup when it's loaded
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const activeTab = tabs[0];
-      const title = activeTab.title;
-      const url = activeTab.url;
-      updatePopupWithTabInfo(title, url);
-    });
-
-
-    // Function to display the title and URL in the popup (optional).
-    function displayTabInfo(tab) {
-
-    console.log(tab.title);
-    console.log(tab.url);
-
-    }
-
-    // Function to handle the response from the tabs.query() method.
-    function handleTabs(tabs) {
-    if (tabs && tabs.length > 0) {
-      const activeTab = tabs[0];
-      displayTabInfo(activeTab);
-    }
-    }
-
-    // Function to handle when tabs are switched
-    function handleTabChange() {
-    chrome.tabs.query({ active: true, currentWindow: true }, handleTabs);
-    }
-
-    // Function to handle when the tabs are updated
-    function handleTabUpdate(tabId, changeInfo, tab) {
-    if (changeInfo.status === 'complete' && tab.active) {
-      displayTabInfo(tab);
-    }
-    }
-
-    chrome.tabs.onActivated.addListener(handleTabChange);
-    chrome.tabs.onUpdated.addListener(handleTabUpdate);
+//     // get current active tab & update popup when it's loaded
+//     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+//       const activeTab = tabs[0];
+//       const title = activeTab.title;
+//       const url = activeTab.url;
+//       updatePopupWithTabInfo(title, url);
+//     });
 
 
+//     // Function to display the title and URL in the popup (optional).
+//     function displayTabInfo(tab) {
+
+//     console.log(tab.title);
+//     console.log(tab.url);
+
+//     }
+
+//     // Function to handle the response from the tabs.query() method.
+//     function handleTabs(tabs) {
+//     if (tabs && tabs.length > 0) {
+//       const activeTab = tabs[0];
+//       displayTabInfo(activeTab);
+//     }
+//     }
+
+//     // Function to handle when tabs are switched
+//     function handleTabChange() {
+//     chrome.tabs.query({ active: true, currentWindow: true }, handleTabs);
+//     }
+
+//     // Function to handle when the tabs are updated
+//     function handleTabUpdate(tabId, changeInfo, tab) {
+//     if (changeInfo.status === 'complete' && tab.active) {
+//       displayTabInfo(tab);
+//     }
+//     }
+
+//     chrome.tabs.onActivated.addListener(handleTabChange);
+//     chrome.tabs.onUpdated.addListener(handleTabUpdate);
 
 
-}catch(e){
-  console.log(e);
-}
+
+
+// }catch(e){
+//   console.log(e);
+// }
+
+import {initializeApp} from 'firebase/app'
+import { collection, getDocs, getFirestore} from 'firebase/firestore'
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBLSX15gty8jTRPPe4zwGvQy3BxJxIU9gQ",
+  authDomain: "surf-sentinel-fc8a9.firebaseapp.com",
+  projectId: "surf-sentinel-fc8a9",
+  storageBucket: "surf-sentinel-fc8a9.appspot.com",
+  messagingSenderId: "7666181085",
+  appId: "1:7666181085:web:c56f28e996bd8fd3d5cc34",
+  measurementId: "G-3FHBWM8CPD"
+};
+//init firebase app
+initializeApp(firebaseConfig)
+//init services
+const db =getFirestore();
+//collection ref
+const colRef= collection(db,'tabs');
+//get collection data
+getDocs(colRef).then((snapshot)=>{
+  console.log(snapshot.docs)
+})

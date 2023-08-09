@@ -4,9 +4,9 @@
     "version": "1.0",
     "manifest_version": 3,
     "permissions":["tabs","bookmarks","notifications"],
-    "host_permissions":["*://*.youtube.com/*"],
     "background":{
-        "service_worker":"firebase.js"
+        "service_worker":"./background.js",
+        "type":"module"
     },
     "action":{
         "default_popup":"popup.html",

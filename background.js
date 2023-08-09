@@ -1,24 +1,3 @@
-//Firebase Configurations
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import firebase from "firebase/compat/app";
-// Required for side-effects
-import "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBLSX15gty8jTRPPe4zwGvQy3BxJxIU9gQ",
-  authDomain: "surf-sentinel-fc8a9.firebaseapp.com",
-  projectId: "surf-sentinel-fc8a9",
-  storageBucket: "surf-sentinel-fc8a9.appspot.com",
-  messagingSenderId: "7666181085",
-  appId: "1:7666181085:web:c56f28e996bd8fd3d5cc34",
-  measurementId: "G-3FHBWM8CPD"
-};
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getFirestore(app);
-
 //BOOKMARKS
 
 function updatePopupWithTabInfo(title, url) {
@@ -123,8 +102,46 @@ chrome.tabs.onActivated.addListener(handleTabChange);
 chrome.tabs.onUpdated.addListener(handleTabUpdate);
 
 
+try{
 
+  // background.js
 
+  // Load the Firebase SDK
+  importScripts("firebase-app.js");
 
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
 
- 
+  // Function to push tab details to Firestore
+  function pushTabDetailsToFirestore(tabId, tabUrl, tabTitle) {
+    const db = firebase.firestore();
+    const tabData = {
+      tabId: tabId,
+      url: tabUrl,
+      title: tabTitle,
+      timestamp: new Date().toISOString(),
+    };
+
+    return db.collection("tab_details").add(tabData);
+  }
+
+  // Listen for tab switch events
+  chrome.tabs.onActivated.addListener((activeInfo) => {
+    const tabId = activeInfo.tabId;
+    chrome.tabs.get(tabId, (tab) => {
+      const tabUrl = tab.url;
+      const tabTitle = tab.title;
+      pushTabDetailsToFirestore(tabId, tabUrl, tabTitle)
+        .then(() => {
+          console.log("Tab details pushed to Firestore.");
+        })
+        .catch((error) => {
+          console.error("Error pushing tab details to Firestore:", error);
+        });
+    });
+  });
+}catch(e){
+  console.error(e)
+}
+
