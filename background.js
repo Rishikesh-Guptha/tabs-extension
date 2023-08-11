@@ -1,3 +1,41 @@
+// const MongoClient = require('mongodb').MongoClient;
+// import { MongoClient } from 'mongodb';
+
+// function connectAndInsertData(data) {
+//     const url = 'mongodb://localhost:27017';
+//     const dbName = 'mydatabase';
+
+//     const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+//     client.connect((err) => {
+//         if (err) {
+//             console.error('Error connecting to the database:', err);
+//             return;
+//         }
+
+//         const db = client.db(ss-trail);
+//         const collection = db.collection('tabs');
+//         // const data = { name: 'John', age: 30 };
+
+//         collection.insertOne(data, (insertErr, result) => {
+//             if (insertErr) {
+//                 console.error('Error inserting data:', insertErr);
+//             } else {
+//                 console.log('Data inserted:', result.ops);
+//             }
+
+//             client.close();
+//         });
+//     });
+// }
+
+// Example: Register a command to trigger the data insertion
+// vscode.commands.registerCommand('extension.insertData', () => {
+//     connectAndInsertData();
+// });
+
+
+
 //BOOKMARKS
 
 function updatePopupWithTabInfo(title, url) {
@@ -62,19 +100,36 @@ function getBookmarkList(bookmarkTree){
 //TABS
 
 // get current active tab & update popup when it's loaded
-chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    const activeTab = tabs[0];
-    const title = activeTab.title;
-    const url = activeTab.url;
-    updatePopupWithTabInfo(title, url);
-  });
+// chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+//     const activeTab = tabs[0];
+//     const title = activeTab.title;
+//     const url = activeTab.url;
+//     updatePopupWithTabInfo(title, url);
+//   });
   
-
+//Function to push the data to mongodb server
+// async function push_data(title,url){
+//   let result = await fetch(
+//     'http://localhost:5000/register', {
+//         method: "post",
+//         body: JSON.stringify({title, url}),
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     })
+//     result = await result.json();
+//     console.warn(result);
+//     if (result) {
+//         alert("Data saved succesfully");
+//     }
+// }
 // Function to display the title and URL in the popup (optional).
 function displayTabInfo(tab) {
 
   console.log(tab.title);
   console.log(tab.url);
+  // send_data(tab.title);
+  // connectAndInsertData(tab.title);
   
 }
 
@@ -100,48 +155,4 @@ function handleTabUpdate(tabId, changeInfo, tab) {
 
 chrome.tabs.onActivated.addListener(handleTabChange);
 chrome.tabs.onUpdated.addListener(handleTabUpdate);
-
-
-try{
-
-  // background.js
-
-  // Load the Firebase SDK
-  importScripts("firebase-app.js");
-
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  
-
-  // Function to push tab details to Firestore
-  function pushTabDetailsToFirestore(tabId, tabUrl, tabTitle) {
-    const db = firebase.firestore();
-    const tabData = {
-      tabId: tabId,
-      url: tabUrl,
-      title: tabTitle,
-      timestamp: new Date().toISOString(),
-    };
-
-    return db.collection("tab_details").add(tabData);
-  }
-
-  // Listen for tab switch events
-  chrome.tabs.onActivated.addListener((activeInfo) => {
-    const tabId = activeInfo.tabId;
-    chrome.tabs.get(tabId, (tab) => {
-      const tabUrl = tab.url;
-      const tabTitle = tab.title;
-      pushTabDetailsToFirestore(tabId, tabUrl, tabTitle)
-        .then(() => {
-          console.log("Tab details pushed to Firestore.");
-        })
-        .catch((error) => {
-          console.error("Error pushing tab details to Firestore:", error);
-        });
-    });
-  });
-}catch(e){
-  console.error(e)
-}
 

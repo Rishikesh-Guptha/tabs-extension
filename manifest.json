@@ -5,8 +5,7 @@
     "manifest_version": 3,
     "permissions":["tabs","bookmarks","notifications"],
     "background":{
-        "service_worker":"./background.js",
-        "type":"module"
+        "service_worker":"background.js"
     },
     "action":{
         "default_popup":"popup.html",
